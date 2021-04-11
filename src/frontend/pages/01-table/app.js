@@ -37,10 +37,16 @@ import Modal from 'bootstrap.native/dist/components/modal-native.esm.js';
  * @property {Function} genLayout adjust object for change layout plotly configuration
  * @property {Function} getPosition get position X and Y from mouse
  * @property {String} messWait show common message please wait
- * @property {String} IP get IP URL value
+ * @property {String} IP2 get IP URL value
  * @memberof Frontend/01-table
  */
-const { modalShow , modalGraph , mBodyBTN1 , mBodyBTN2 , genTable , genData, genLayout , getPosition, messWait , IP } = require('../../js/service.js');
+const { modalShow , modalGraph , mBodyBTN1 , mBodyBTN2 , genTable , genData, genLayout , getPosition, messWait , IP2 } = require('../../js/service.js');
+/** 
+ * IP o URL for operation fetch
+ * @type {String}
+ * @memberof Frontend/01-table
+ */ 
+const IP= '/APItrace'; //IP2;
 /** 
  * HTML form that contain two first date inputs and first button
  * @type {HTMLElement}
@@ -292,7 +298,7 @@ document.addEventListener( "contextmenu", ev=>{
       $menu.style.left = menuPosition.x + "px";
       $menu.style.top = menuPosition.y + "px";
       document.querySelector('#context-menu li').innerHTML = `
-      <a href="/pages/chart?gn=${ ev.path[1].id }" class="context-menu__link px-2 py-1" data-action="View" target="_blank">
+      <a href="/projects/trace94/pages/chart?gn=${ ev.path[1].id }" class="context-menu__link px-2 py-1" data-action="View" target="_blank">
         <i class="fas fa-chalkboard"></i> Open graph in new tab
       </a>`;
       $menu.classList.add('d-block');
@@ -390,32 +396,6 @@ $btn_down.addEventListener('click', ()=>{
         location.href = window.URL.createObjectURL(eblob);
 
         setTimeout(() => native.hide(), 1000);
-
-        /*
-        const eblob = new Blob([res], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
-        const file = window.URL.createObjectURL(eblob);
-        window.location.assign(file);
-        */
-
-        /*
-        const eblob = new Blob([res], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
-        const url = window.URL.createObjectURL(eblob);
-        const link = document.createElement('a');
-        link.href = url;
-        link.download = `FACS-WEB Report.xlsx`;
-        link.click();
-        window.URL.revokeObjectURL(url);
-        */
-
-        /*
-        const $a = document.createElement('a');
-        $a.href = url;
-        $a.download = "filename.xlsx";
-        document.body.appendChild($a); 
-        $a.click();    
-        $a.remove();
-        */
-
       });
      
   });

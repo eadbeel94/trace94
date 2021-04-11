@@ -216,6 +216,6 @@ const getPosition= (ev)=>{
  * @memberof Frontend/01-table
  * @todo I need to change in production
  */ 
-const IP= '/APItrace/';//'http://localhost:5001/driveshop5/us-central1/trace';
+const IP2= '/APItrace';//'http://localhost:5001/driveshop5/us-central1/trace';
 
-module.exports= { modalShow , modalGraph , mBodyBTN1 , mBodyBTN2 , messWait , genTable , genData , genLayout , getPosition , IP };
+module.exports= { modalShow , modalGraph , mBodyBTN1 , mBodyBTN2 , messWait , genTable , genData , genLayout , getPosition , IP2 };

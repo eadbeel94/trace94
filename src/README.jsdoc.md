@@ -1,22 +1,22 @@
 # Trace 94
-is a simple project that use vanilla JS without framework.
+is a simple project that use vanilla JS without framework, also use server less firebase techologies like "functions", "hosting" and "storage".
 
 This app can do:
 - Read CSV files and show into table 
 - Show a graph for each CSV file readed
 
-![](/img/readme.png)
+![](/projects/trace94/img/readme.png)
 
 # Project documentation structure
 - Frontend (views)
-  - [main](/pages/doc/Frontend_01-table.html)
-  - [graph](/pages/doc/Frontend_02-graph.html)
+  - [main](/projects/trace94/pages/doc/Frontend_01-table.html)
+  - [graph](/projects/trace94/pages/doc/Frontend_02-graph.html)
 
 - Frontend (helper)
-  - [service](/pages/doc/Frontend_service.html)
+  - [service](/projects/trace94/pages/doc/Frontend_service.html)
 
 - Backend (routes)
-  - [files](/pages/doc/Backend_route_files.html)
+  - [files](/projects/trace94/pages/doc/Backend_route_files.html)
 
 <!--
 Web page example link: [inventory94](https://inventory94.herokuapp.com/)

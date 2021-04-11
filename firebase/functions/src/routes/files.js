@@ -44,7 +44,7 @@ const listFiles= async ( blobs= [] )=>{
  * @memberof Backend/route/files
  */
 router.post('/filter1', async (req,res)=>{
-  console.log('filter1');
+  //console.log('filter1');
   let status= false;
   let items= [];
   try {
@@ -98,7 +98,7 @@ router.post('/filter1', async (req,res)=>{
  * @memberof Backend/route/files
  */
 router.get('/graph1', async (req,res)=>{
-  console.log('graph1');
+  //console.log('graph1');
   let status= false;
   let items= [];
   let result= "";
@@ -128,10 +128,9 @@ router.get('/graph1', async (req,res)=>{
  * @memberof Backend/route/files
  */
 router.get('/search1', async (req,res)=>{
-  console.log('search1');
+  //console.log('search1');
   let status= false;
   let items= [];
-  //let result= "";
   try {
     if( req.query.s ){
 
@@ -177,9 +176,7 @@ router.use( jsonex.middleware );
  * @memberof Backend/route/files
  */
 router.post('/gentable1', async (req,res)=>{
-  console.log('gentable1');
-  let status= false;
-  let tmpuri= "";
+  //console.log('gentable1');
   try {
     if( req.body ){
       const files= { names: [] , conts: [] };

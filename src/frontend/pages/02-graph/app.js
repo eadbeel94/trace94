@@ -20,10 +20,16 @@ import Plotly from 'plotly.js-basic-dist';
  * @property {Function} mBodyBTN1 return string with a button for a Modal
  * @property {Function} genData re arenge data from apo for plotly configuration
  * @property {Function} genLayout adjust object for change layout plotly configuration
- * @property {String} IP get IP URL value
+ * @property {String} IP2 get IP URL value
  * @memberof Frontend/02-graph
  */
-const { modalShow , mBodyBTN1 , genData, genLayout , IP } = require('../../js/service.js');
+const { modalShow , mBodyBTN1 , genData, genLayout , IP2 } = require('../../js/service.js');
+/** 
+ * IP o URL for operation fetch
+ * @type {String}
+ * @memberof Frontend/01-table
+ */ 
+ const IP= '/APItrace'; //IP2;
 /** 
  * Variable that will contain HTML graph area
  * @type {HTMLElement}

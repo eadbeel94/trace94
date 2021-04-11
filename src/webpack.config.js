@@ -47,7 +47,7 @@ module.exports= {
   output: {
     path: path.join(__dirname, 'www'),
     filename: 'js/[name].bundle.js',
-    publicPath: '/'
+    publicPath: prod ? '/projects/trace94/' : '/'
   },
   devServer: {
     contentBase: path.join(__dirname, 'www'), //hot: false, inline: false,
