@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%= htmlWebpackPlugin.tags.title %></title>
+  <link rel="icon" href="/img/favicon.ico">
+</head>
+<body>
+  <!--Filter section-->
+  <section id="sec_filter1" class="container-fluid mt-2">
+    <div class="card">
+      <div class="row mx-0">
+        <section class="col-xl-6 mt-1">
+          <form id="frm_date" autocomplete="off">
+            <div class="form-row">
+              <div class="col-md-9">
+                <div class="form-group row mb-0">
+                  <label class="col-xs-3 col-2 col-form-label text-right pr-2">From: </label>
+                  <div class="col-xs-3 col-6 px-0">
+                    <input id="inp_dateto" class="form-control" placeholder="dd mmm aaaa" required pattern="([0-9]{2}).([A-Z][a-z]{2}).([0-9]{4})">
+                  </div>
+                  <div class="col-xs-5 col-4 pr-1 pl-2">
+                    <div class="form-group form-check mt-1">
+                      <input type="checkbox" class="form-check-input" id="checkok">
+                      <label class="form-check-label" for="checkok">Parts OK</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group row mb-0">
+                  <label class="col-xs-3 col-2 col-form-label text-right pr-2">To: </label>
+                  <div class="col-xs-3 col-6 px-0">
+                    <input id="inp_datefr" class="form-control" placeholder="dd mmm aaaa" pattern="([0-9]{2}).([A-Z][a-z]{2}).([0-9]{4})">
+                  </div>
+                  <div class="col-xs-5 col-4 pr-1 pl-2">
+                    <div class="form-group form-check mt-1">
+                      <input type="checkbox" class="form-check-input" id="checknok">
+                      <label class="form-check-label" for="checknok">Parts NOK</label>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-3"><button type="submit" class="btn btn-outline-light w-100" style="margin-top: 25px;">Filter</button></div>
+            </div>
+          </form>
+        </section>
+        <section class="col-xl-6 mt-1">
+          <form id="frm_search" autocomplete="off">
+            <div class="form-row" style="margin-top: 25px;">
+              <div class="col-md-9 text-right">
+                <div class="form-group row">
+                  <label class="col-5 col-form-label text-right">Search: </label>
+                  <div class="col-7">
+                    <!--<input type="search" class="form-control" placeholder="Que desea buscar" required pattern="[GH0A]{4,4}[0-9A-Za-z]{11,11}">-->
+                    <input type="search" class="form-control" placeholder="Insert SN" required>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-3"><button type="submit" class="btn btn-outline-light w-100">Search</button></div>
+            </div>
+          </form>
+        </section>
+      </div>
+    </div>
+  </section>
+  <!--Table section-->
+  <section id="sec_table1" class="container-fluid">
+    <div class="card mt-2 p-2 overflow-auto" style="height: 70vh;">
+      <table class="table table-sm table-hover table-borderless">
+        <thead>
+          <tr class="text-uppercase pt-1">
+            <th scope="col">
+              #
+            </th>
+            <th scope="col">
+              <button type="button" class="btn btn-block btn-outline-light active">
+                Date <i class="fas fa-arrow-up"></i>
+              </button>
+            </th>    
+            <th scope="col">
+              <button type="button" class="btn btn-block btn-outline-light">
+                Hour <i class="fas"></i>
+              </button>
+            </th>           
+            <th scope="col">
+              <button type="button" class="btn btn-block btn-outline-light">
+                SN <i class="fas"></i>
+              </button>
+            </th>
+            <th scope="col">
+              <button type="button" class="btn btn-block btn-outline-light">
+                Status <i class="fas"></i>
+              </button>
+            </th>  
+            <th scope="col">
+              <button type="button" class="btn btn-block btn-outline-light">
+                Program Number <i class="fas"></i>
+              </button>
+            </th>  
+          </tr>
+        </thead>
+        <tbody id="spc_tfill"></tbody>
+      </table>
+    </div>
+  </section>
+  <!--Buttons section-->
+  <section id="sec_btnpage1" class="text-center mt-2" role="group">
+    <div class="row mx-0">
+
+      <div class="offset-md-1 col-md-3 align-self-center">
+        <button id="btn_down" type="button" class="form-control btn btn-outline-light text-truncate" style="font-family: kanit1; font-size: 20px;">
+          <i class="far fa-file-excel pr-2"></i> Import excel table
+        </button>
+      </div>
+
+      <!--
+      <div class="col-md-4">
+        <div class="btn-group">
+          <span style="line-height: 2.3;" class="text-light">PAG: </span>
+          <button id="btn_minus" type="button" class="form-control btn btn-outline-light ml-2">
+            <i id="btn_minus" class="fas fa-minus-circle"></i>
+          </button>
+          <input id="inp_page" type="number" class="form-control text-center" value="1">
+          <button id="btn_plus" type="button" class="form-control btn btn-outline-light">
+            <i id="btn_plus" class="fas fa-plus-circle"></i>
+          </button>
+        </div>
+      </div>
+      -->
+      
+      <div id="lbl_total" class="col-md-4 align-self-center">
+        TOTAL:  
+      </div>
+
+    </div>
+  </section>
+  
+  <%= htmlWebpackPlugin.tags.footer %>
+
+  <!--Modal section-->
+  <section id="sec_modalG"></section>
+  <!--Modal section 1-->
+  <section id="sec_modal"></section>
+  <!--Modal section 2-->
+  <section id="sec_modal2"></section>
+
+  <nav id="context-menu">
+    <ul class="context-menu__items p-0 m-0">
+      <li class="context-menu__item py-2"></li>
+    </ul>
+  </nav>
+
+</body>
+</html>

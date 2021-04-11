@@ -1,0 +1,15 @@
+src/extras
+src/frontend/css/b4
+src/frontend/css/fa
+src/frontend/css/pd
+src/frontend/font
+src/node_modules
+src/www
+
+firebase/functions/node_modules
+firebase/functions/src/keys
+firebase/functions/ui-debug.log
+firebase/public/
+firebase/.firebaserc
+firebase/firebase-debug.log
+firebase/ui-debug.log

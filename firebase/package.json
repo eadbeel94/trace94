@@ -1,0 +1,14 @@
+{
+  "name": "firebase",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "firebase emulators:start --only functions,hosting",
+    "testF": "firebase emulators:start --only functions",
+    "testH": "firebase emulators:start --only hosting"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

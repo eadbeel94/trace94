@@ -1,0 +1,18 @@
+{
+  "plugins": ["jsdoc-http-plugin"],
+  "source": {
+    "include": ["frontend","../firebase/functions/src"],
+    "includePattern": ".js$",
+    "excludePattern": "(www|firebase/funcions/node_modules)"
+  },
+  "templates": {
+    "cleverLinks": false,
+    "monospaceLinks": false
+  },
+  "opts": {
+    "recurse": "true",
+    "destination": "./www/pages/doc",
+    "template": "node_modules/docdash",
+    "readme": "./README.jsdoc.md"
+  }
+}

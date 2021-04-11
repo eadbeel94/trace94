@@ -1,0 +1,19 @@
+{
+  "hosting": {
+    "public": "public",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "/functions/**",
+      "/functions/node_modules",
+      "/functions/src/keys"
+    ],
+    "rewrites": [
+      {
+        "source": "/APItrace/*",
+        "function": "trace"
+      }
+    ]
+  }
+}
