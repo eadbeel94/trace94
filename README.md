@@ -7,7 +7,7 @@ This app can do:
 
 ![](/src/frontend/img/readme.png)
 
-Web page example link: [inventory94](https://myportfolio-94.web.app/projects/trace94/)
+Web page example link: [trace94](https://myportfolio-94.web.app/projects/trace94/)
 
 # Used Technologies
 - Frontend
