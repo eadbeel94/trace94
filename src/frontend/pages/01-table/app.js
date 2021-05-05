@@ -37,16 +37,23 @@ import Modal from 'bootstrap.native/dist/components/modal-native.esm.js';
  * @property {Function} genLayout adjust object for change layout plotly configuration
  * @property {Function} getPosition get position X and Y from mouse
  * @property {String} messWait show common message please wait
- * @property {String} IP2 get IP URL value
+ * @property {String} prod environment type project run
+ * @property {String} IP get IP URL value
  * @memberof Frontend/01-table
  */
-const { modalShow , modalGraph , mBodyBTN1 , mBodyBTN2 , genTable , genData, genLayout , getPosition, messWait , IP2 } = require('../../js/service.js');
-/** 
- * IP o URL for operation fetch
- * @type {String}
- * @memberof Frontend/01-table
- */ 
-const IP= '/APItrace'; //IP2;
+const { 
+  modalShow, 
+  modalGraph, 
+  mBodyBTN1, 
+  mBodyBTN2, 
+  genTable, 
+  genData, 
+  genLayout, 
+  getPosition, 
+  messWait,
+  prod,
+  IP
+} = require('../../js/service.js');
 /** 
  * HTML form that contain two first date inputs and first button
  * @type {HTMLElement}
@@ -133,54 +140,26 @@ let $sec_graph;
 let dataGraphs= [];
 /** 
  * Variable with first input date configuration
- * @type {object}
+ * @const {object} pik1
  * @memberof Frontend/01-table
  */
-new Pikaday({ field: $inp_dateto, onClose : function() { $inp_dateto.value= moment(this.toString()).isValid() ? moment(this.toString()).format('DD MMM YYYY') : ''; }});
+const pik1= new Pikaday({ field: $inp_dateto, onClose : function() { $inp_dateto.value= moment(this.toString()).isValid() ? moment(this.toString()).format('DD MMM YYYY') : ''; }});
 /** 
  * Variable with second input date configuration
- * @type {object}
+ * @const {object} pik2
  * @memberof Frontend/01-table
  */
-new Pikaday({ field: $inp_datefr, onClose : function() { $inp_datefr.value= moment(this.toString()).isValid() ? moment(this.toString()).format('DD MMM YYYY') : ''; }});
+const pik2= new Pikaday({ field: $inp_datefr, onClose : function() { $inp_datefr.value= moment(this.toString()).isValid() ? moment(this.toString()).format('DD MMM YYYY') : ''; }});
 
-/**
- * When inicialize this page, load graphs from first march to currenty date
- * @callback window-onload
- * @memberof Frontend/01-table
- */
-window.addEventListener("load", ev =>{
-  const { native }= modalShow( Modal, "sec_modal", undefined, mBodyBTN1(messWait) );  //Show modal with please wait message
-
-  const send= {
-    fr: "2021-03-01T00:00:00-06:00",
-    st: "",
-    to: moment().format()
-  }
-
-  fetch(`${IP}/filter1`,{  method: 'POST', body: JSON.stringify(send), headers:{ 'Content-Type': 'application/json'  } })
-    .then(res0 => { return res0.json() })
-    .catch(err =>  modalShow( Modal, "sec_modal", 1, mBodyBTN1(err) ) )
-    .then( res => {   //Show modal with information
-      setTimeout(() => native.hide(), 1000);
-      //modalShow( Modal , "sec_modal" , undefined, mBodyBTN1(res.status ? `Article deleted successfully` : `Error`) )
-      if(res.hasOwnProperty('status')){
-        if(res.status){
-          dataGraphs= res.items;
-          $lbl_total.innerText= `TOTAL: ${ dataGraphs.length } elementos`;
-          $spc_tfill.innerHTML= genTable( dataGraphs );
-        };  
-      };
-
-    });
-})
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
 /**
  * User press filter button, then send two dates to backend and get files for fill table
- * @callback $frm_date-submit 
+ * @function getFilterList
  * @memberof Frontend/01-table
+ * @param {Event} ev Submit click event button press
  */
-$frm_date.addEventListener('submit', ev=>{
+ const getFilterList= (ev) => {
   ev.preventDefault();
 
   const { $confirmed }= modalShow( Modal, "sec_modal", 1, mBodyBTN2('Query process will take any time, Do you wanna continue?') );
@@ -200,29 +179,37 @@ $frm_date.addEventListener('submit', ev=>{
       st: ev.target[1].checked && ev.target[3].checked ? '' : ( ev.target[1].checked ? 'OK' : ( ev.target[3].checked ? 'NOK' : '' ) )
     }
 
-    fetch(`${IP}/filter1`,{  method: 'POST', body: JSON.stringify(send), headers:{ 'Content-Type': 'application/json'  } })
-      .then(res0 => { return res0.json() })
-      .catch(err =>  modalShow( Modal, "sec_modal", 1, mBodyBTN1(err) ) )
+    fetch(`${IP}/api/trace/filter1`,{ 
+        method: 'POST', 
+        body: JSON.stringify(send), 
+        headers:{ 'Content-Type': 'application/json'  } 
+      })
+      .then( res0 => res0.ok ? res0.json() : Promise.reject( `Status -> ${ res0.status } ** Code error -> ${ res0.statusText }`) )
       .then( res => {   //Show modal with information
         setTimeout(() => native.hide(), 1000);
         //modalShow( Modal , "sec_modal" , undefined, mBodyBTN1(res.status ? `Article deleted successfully` : `Error`) )
         if(res.hasOwnProperty('status')){
           if(res.status){
             dataGraphs= res.items;
-            $lbl_total.innerText= `TOTAL: ${ dataGraphs.length } elementos`;
+            $lbl_total.innerText= `TOTAL: ${ dataGraphs.length } elements`;
             $spc_tfill.innerHTML= genTable( dataGraphs );
           };  
         };
 
-      });
+      })
+      .catch(err =>  modalShow( Modal, "sec_modal", 1, mBodyBTN1(err) ) )
   });
-});
+};
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /**
  * User press search button, then send query to backend and get files for fill table
- * @callback $frm_search-submit 
+ * @function getSearchList
  * @memberof Frontend/01-table
+ * @param {Event} ev Submit click event button press
  */
-$frm_search.addEventListener('submit', ev=>{
+const getSearchList= (ev) => {
   ev.preventDefault();
   Array.from( $sec_headBtns ).forEach( r =>{
     r.classList.remove("active");
@@ -236,33 +223,36 @@ $frm_search.addEventListener('submit', ev=>{
   $confirmed.addEventListener('click', ()=>{
     const { native }= modalShow( Modal, "sec_modal", undefined, mBodyBTN1(messWait) );  //Show modal with please wait message
     
-    fetch(`${IP}/search1?s=${ ev.target[0].value }`)
-      .then(res0 => { return res0.json() })
-      .catch(err =>  modalShow( Modal, "sec_modal", 1, mBodyBTN1(err) ) )
+    fetch(`${IP}/api/trace/search1?s=${ ev.target[0].value }`)
+      .then( res0 => res0.ok ? res0.json() : Promise.reject( `Status -> ${ res0.status } ** Code error -> ${ res0.statusText }`) )
       .then( res => {   //Show modal with information
         setTimeout(() => native.hide(), 1000);
         if(res.hasOwnProperty('status')){
           if(res.status){
             dataGraphs= res.items;
-            $lbl_total.innerText= `TOTAL: ${ dataGraphs.length } elementos`;
+            $lbl_total.innerText= `TOTAL: ${ dataGraphs.length } elements`;
             $spc_tfill.innerHTML= genTable( dataGraphs );
           };  
         };
-      });
+      })
+      .catch(err =>  modalShow( Modal, "sec_modal", 1, mBodyBTN1(err) ) )
 
   });
-});
+};
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /**
  * User press double click in any row then show modal with an graph
- * @callback $spc_tfill-dblclick 
+ * @function openGraph
+ * @param {Event} ev click event button press
  * @memberof Frontend/01-table
  */
-$spc_tfill.addEventListener('dblclick',async ev=>{
+ const openGraph= (ev) => {
   if(ev.target.tagName == 'TD'){
     const row= ev.path[1].id;
-    fetch(`${IP}/graph1?gn=${row}`)
-      .then(res0 => { return res0.json() })
-      .catch(err =>  modalShow( Modal, "sec_modal", 1, mBodyBTN1(err) ) )
+    fetch(`${IP}/api/trace/graph1?gn=${row}`)
+      .then( res0 => res0.ok ? res0.json() : Promise.reject( `Status -> ${ res0.status } ** Code error -> ${ res0.statusText }`) )
       .then( res => {  
         if(res.hasOwnProperty('status')){
           if(res.status){
@@ -273,23 +263,20 @@ $spc_tfill.addEventListener('dblclick',async ev=>{
           };  
         };
 
-      });
+      })
+      .catch(err =>  modalShow( Modal, "sec_modal", 1, mBodyBTN1(err) ) )
   }
-});
+};
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /**
- * If user change window when modal graph is open, then change graph's size 
- * @callback window-resize 
+ * User press secondary button in any row then show message "open graph in new tab"
+ * @function showTap
+ * @param {Event} ev click event button press
  * @memberof Frontend/01-table
  */
-window.addEventListener('resize', ()=>{
-  $sec_graph && Plotly.relayout( $sec_graph, { height: $sec_graph.clientHeight, width: (document.querySelector('body').clientWidth)*0.89 });
-});
-/**
- * User press seconday button in any row then show message "open graph in new tab"
- * @callback contextmenu-secondaryclick 
- * @memberof Frontend/01-table
- */
-document.addEventListener( "contextmenu", ev=>{
+const showTab= (ev) => {
   ev.preventDefault();
   if( menuState !== 1 ){  
     if(ev.path[1].tagName == "TR"){
@@ -298,7 +285,7 @@ document.addEventListener( "contextmenu", ev=>{
       $menu.style.left = menuPosition.x + "px";
       $menu.style.top = menuPosition.y + "px";
       document.querySelector('#context-menu li').innerHTML = `
-      <a href="/projects/trace94/pages/chart?gn=${ ev.path[1].id }" class="context-menu__link px-2 py-1" data-action="View" target="_blank">
+      <a href="${ prod ? '/projects/trace94' : '' }/pages/chart?gn=${ ev.path[1].id }" class="context-menu__link px-2 py-1" data-action="View" target="_blank">
         <i class="fas fa-chalkboard"></i> Open graph in new tab
       </a>`;
       $menu.classList.add('d-block');
@@ -307,13 +294,16 @@ document.addEventListener( "contextmenu", ev=>{
   }else {          
     menuState = 0; $menu.classList.remove('d-block');  
   };
-});
+};
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /**
- * User press any button in table hader, then re-arenge element into table based button pressed criterion
- * @callback $sec_tabHead-click 
+ * User press any button in table headder, then re-arenge element into table based button pressed criterion
+ * @function orderList
  * @memberof Frontend/01-table
  */
-$sec_tabHead.addEventListener("click", ev=>{
+const orderList= (ev) => {
   if(ev.target.type == "button"){
     let pos;
     Array.from( $sec_headBtns ).forEach( (r,i) =>{
@@ -376,27 +366,92 @@ $sec_tabHead.addEventListener("click", ev=>{
     });
     $spc_tfill.innerHTML= genTable( dataGraphs );
   };
-});
+};
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /**
  * User press this button, download table content into excel file
- * @callback $btn_down-click 
+ * @function downList
  * @memberof Frontend/01-table
  */
-$btn_down.addEventListener('click', ()=>{
+const downList= () => {
   const { $confirmed }= modalShow( Modal, "sec_modal", 1, mBodyBTN2('Query process will take any time, Do you wanna continue?') );
   $confirmed.addEventListener('click', ()=>{
     const { native }= modalShow( Modal, "sec_modal", undefined, mBodyBTN1(messWait) );  //Show modal with please wait message
 
     const send= dataGraphs.map( r =>{ return r.fname; });
-    fetch(`${IP}/gentable1`, { method: 'POST', body: JSON.stringify(send), headers:{ 'Content-Type': 'application/json'  } })
-      .then( res => res.blob() )
-      .catch( err => modalShow( Modal, "sec_modal", 1, mBodyBTN1(err) ) )
+    fetch(`${IP}/api/trace/gentable1`, { 
+        method: 'POST', 
+        body: JSON.stringify(send), 
+        headers:{ 'Content-Type': 'application/json'  } 
+      })
+      .then( res0 => res0.ok ? res0.blob() : Promise.reject( `Status -> ${ res0.status } ** Code error -> ${ res0.statusText }`) )
       .then( res => {
         const eblob = new Blob([res], {type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"});
         location.href = window.URL.createObjectURL(eblob);
 
         setTimeout(() => native.hide(), 1000);
-      });
+      })
+      .catch( err => modalShow( Modal, "sec_modal", 1, mBodyBTN1(err) ) )
      
   });
-});
+};
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+/**
+ * If user change window when modal graph is open, then change graph's size 
+ * @function resizeGraph
+ * @memberof Frontend/01-table
+ */
+ const resizeGraph= () => {
+  $sec_graph && Plotly.relayout( $sec_graph, { height: $sec_graph.clientHeight, width: (document.querySelector('body').clientWidth)*0.89 });
+};
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+/**
+ * Execute segment code when page end load and load graphs from first march to currenty date
+ * @function main
+ * @memberof Frontend/01-table
+ */
+const main= () => {
+  const { native }= modalShow( Modal, "sec_modal", undefined, mBodyBTN1(messWait) );  //Show modal with please wait message
+
+  const send= {
+    fr: "2021-03-01T00:00:00-06:00",
+    st: "",
+    to: moment().format()
+  }
+
+  fetch(`${IP}/api/trace/filter1`,{  
+      method: 'POST', 
+      body: JSON.stringify(send), 
+      headers:{ 'Content-Type': 'application/json'  } 
+    })
+    .then( res0 => res0.ok ? res0.json() : Promise.reject( `Status -> ${ res0.status } ** Code error -> ${ res0.statusText }`) )
+    .then( res => {   //Show modal with information
+      setTimeout(() => native.hide(), 1000);
+      //modalShow( Modal , "sec_modal" , undefined, mBodyBTN1(res.status ? `Article deleted successfully` : `Error`) )
+      if(res.hasOwnProperty('status')){
+        if(res.status){
+          dataGraphs= res.items;
+          $lbl_total.innerText= `TOTAL: ${ dataGraphs.length } elements`;
+          $spc_tfill.innerHTML= genTable( dataGraphs );
+        };  
+      };
+
+    })
+    .catch(err =>  modalShow( Modal, "sec_modal", 1, mBodyBTN1(err) ) )
+
+  $frm_date.onsubmit= (ev) => getFilterList(ev);
+  $frm_search.onsubmit= (ev) => getSearchList(ev);
+  $spc_tfill.ondblclick= (ev) => openGraph(ev);
+  document.oncontextmenu= (ev) => showTab(ev);
+  $sec_tabHead.onclick= (ev) => orderList(ev);
+  $btn_down.onclick= downList;  
+};
+
+window.onload= main;
+window.onresize= resizeGraph;

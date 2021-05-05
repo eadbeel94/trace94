@@ -9,7 +9,7 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin');
 
 const orgPath= './frontend/pages/';
-const desPath= './www';
+const desPath= './www/trace94';
 const outFiles= [{},[]];
 const inpFiles= [
   ['table','01-table','/index.html'],
@@ -45,7 +45,7 @@ module.exports= {
   entry: outFiles[0],
   mode: prod ? 'production' : 'development',
   output: {
-    path: path.join(__dirname, 'www'),
+    path: path.join(__dirname,  desPath ),
     filename: 'js/[name].bundle.js',
     publicPath: prod ? '/projects/trace94/' : '/'
   },

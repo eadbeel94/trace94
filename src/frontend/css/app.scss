@@ -1,3 +1,6 @@
+
+/* -----------------------------------Fonts------------------------------------------------------------- */
+
 @font-face {
   font-family: 'teko1'; src: url('../font/teko1.ttf');
 }
@@ -7,6 +10,8 @@
 @font-face {
   font-family: 'kanit1'; src: url('../font/kanit1.ttf');
 }
+
+/* -----------------------------------Global config------------------------------------------------------------- */
 
 :root{
   --color1: #131710;
@@ -45,6 +50,11 @@ input[type=number] {
 
 body{
   background-color: var(--color1); color: var(--light); font-family: kanit1; font-size: 18px;
+}
+@media (max-width: 1000px) {
+  body{
+    font-size: 14px;
+  }
 }
 .card{
   background-color: var(--color3); border-radius: 0;
@@ -87,79 +97,6 @@ input.form-control::placeholder{
   font-size: 24px; width: 2.5rem; height: 2.5rem;
 }
 
-.btn-outline-type1 {
-  color: var(--light);
-  border-color: var(--light);
-  border-radius: 0;
-  border-width: 2px;
-  background-color: var(--color5);
-}
-
-.btn-outline-type1:hover {
-  color: var(--color5);/*#fff;*/
-  background-color: var(--light);
-  border-color: var(--light);
-}
-
-.btn-outline-type1:not(:disabled):not(.disabled):active, .btn-outline-type1:not(:disabled):not(.disabled).active,
-.show > .btn-outline-type1.dropdown-toggle {
-  color: var(--color5);/*#fff;*/
-  background-color: var(--light);
-  border-color: var(--light);
-}
-
-
-#sec_table1 tr.text-uppercase{
-  background-color: var(--color5); color: var(--light); font-family: righte1; font-size: 18px;
-}
-#sec_table1 tr.text-uppercase th:nth-child(1){
-  width: 5%;
-}
-#sec_table1 tr.text-uppercase th:nth-child(2), #sec_table1 tr.text-uppercase th:nth-child(3), tr.text-uppercase th:nth-child(5) , tr.text-uppercase th:nth-child(6) {
-  width: 15%;
-}
-#sec_table1 tbody{
-  color: var(--color7); font-size: 22px;
-}
-#sec_table1 .table-hover tbody tr:hover {
-  color: var(--light); background-color: var(--color1); 
-}
-
-
-#sec_btnpage1 .btn-group button{
-  width: 50px; background-color: var(--color3);
-} 
-#sec_btnpage1 .btn-group input{
-  width: 70px; background-color: var(--color3); border: var(--light) solid 1px;
-}
-@media (max-width: 1200px) {
-  #sec_btnpage1{
-    margin-bottom: 4.2rem;
-  }
-}
-@media (max-width: 1000px) {
-  #sec_btnpage1{
-    margin-bottom: 5rem;
-  }
-}
-@media (max-width: 768px) {
-  #sec_btnpage1{
-    margin-bottom: 7rem;
-  }
-}
-
-
-#sec_footer{
-  font-family: righte1;
-}
-#sec_footer .row span:nth-child(1){
-  color: var(--color7); font-size: 30px; font-family: teko1; margin-top: 0.25rem;
-}
-#sec_footer a{
-  color: var(--color7); font-size: 20px; ;font-family: teko1; 
-}
-
-
 #context-menu {
   display: none; position: absolute; z-index: 10; background-color: var(--color2); border: 0; box-shadow: 1px 1px 2px var(--color1);
 }
@@ -197,6 +134,115 @@ input.form-control::placeholder{
 .modalT1 .modal-footer button:nth-child(2):hover{
   background-color: #d23430; border-color: #c9302c;
 }
+
+.btn-outline-type1 {
+  color: var(--light);
+  border-color: var(--light);
+  border-radius: 0;
+  border-width: 2px;
+  background-color: var(--color5);
+}
+
+.btn-outline-type1:hover {
+  color: var(--color5);/*#fff;*/
+  background-color: var(--light);
+  border-color: var(--light);
+}
+
+.btn-outline-type1:not(:disabled):not(.disabled):active, .btn-outline-type1:not(:disabled):not(.disabled).active,
+.show > .btn-outline-type1.dropdown-toggle {
+  color: var(--color5);/*#fff;*/
+  background-color: var(--light);
+  border-color: var(--light);
+}
+
+#sec_footer{
+  font-family: righte1;
+}
+#sec_footer .row span:nth-child(1){
+  color: var(--color7); font-size: 30px; font-family: teko1; margin-top: 0.25rem;
+}
+#sec_footer a{
+  color: var(--color7); font-size: 20px; ;font-family: teko1; 
+}
+
+/* ---------------------------------------Sections--------------------------------------------------------- */
+
+#frm_date div.col-md-9 > div:nth-child(1){
+  height: 45px;
+  overflow: hidden;
+}
+
+@media (max-width: 1000px) {
+  #sec_table1 tbody{
+    font-size: 14px;
+  }
+}
+
+/* ---------------------------------------Sections--------------------------------------------------------- */
+
+#sec_table1 tr.text-uppercase{
+  background-color: var(--color5); color: var(--light); font-family: righte1; font-size: 18px;
+}
+#sec_table1 tr.text-uppercase th:nth-child(1){
+  width: 5%;
+}
+#sec_table1 tr.text-uppercase th:nth-child(2), #sec_table1 tr.text-uppercase th:nth-child(3), tr.text-uppercase th:nth-child(5) , tr.text-uppercase th:nth-child(6) {
+  width: 15%; min-width: 130px;
+}
+#sec_table1 tbody{
+  color: var(--color7); font-size: 22px;
+}
+#sec_table1 .table-hover tbody tr:hover {
+  color: var(--light); background-color: var(--color1); 
+}
+
+#sec_table1 button{
+  height: 35px;
+  overflow: hidden;
+}
+
+@media (max-width: 1000px) {
+  #sec_table1 tbody{
+    font-size: 14px;
+  }
+}
+
+/* ---------------------------------------Sections--------------------------------------------------------- */
+
+#sec_btnpage1 .btn-group button{
+  width: 50px; background-color: var(--color3);
+} 
+#sec_btnpage1 .btn-group input{
+  width: 70px; background-color: var(--color3); border: var(--light) solid 1px;
+}
+@media (max-width: 1200px) {
+  #sec_btnpage1{
+    margin-bottom: 4.2rem;
+  }
+}
+@media (max-width: 1000px) {
+  #sec_btnpage1{
+    margin-bottom: 5rem;
+  }
+}
+@media (max-width: 768px) {
+  #sec_btnpage1{
+    margin-bottom: 7rem;
+  }
+}
+
+#btn_down{
+  font-family: kanit1; font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  #btn_down{
+    font-size: 14px;
+  }
+}
+
+/* ---------------------------------------Sections--------------------------------------------------------- */
 
 #sec_bodyM3{
   justify-content: center;

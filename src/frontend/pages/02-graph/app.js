@@ -23,13 +23,14 @@ import Plotly from 'plotly.js-basic-dist';
  * @property {String} IP2 get IP URL value
  * @memberof Frontend/02-graph
  */
-const { modalShow , mBodyBTN1 , genData, genLayout , IP2 } = require('../../js/service.js');
-/** 
- * IP o URL for operation fetch
- * @type {String}
- * @memberof Frontend/01-table
- */ 
- const IP= '/APItrace'; //IP2;
+const { 
+  modalShow,
+  mBodyBTN1,
+  genData,
+  genLayout, 
+  IP 
+} = require('../../js/service.js');
+
 /** 
  * Variable that will contain HTML graph area
  * @type {HTMLElement}
@@ -38,15 +39,16 @@ const { modalShow , mBodyBTN1 , genData, genLayout , IP2 } = require('../../js/s
 let $sec_graph;
 document.querySelector('title').innerText+= `(${ window.location.search.substr(4) })`;
 
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /**
  * Send query to backend and get all values X and Y and after show respective graph
  * @callback DOMContentLoaded 
  * @memberof Frontend/02-graph
  */
 document.addEventListener("DOMContentLoaded", () => { 
-  fetch(`${IP}/graph1${window.location.search}`)
-    .then(res0 => { return res0.json() })
-    .catch(err =>  modalShow( Modal, "sec_modal", 1, mBodyBTN1(err) ) )
+  fetch(`${IP}/api/trace/graph1${window.location.search}`)
+    .then( res0 => res0.ok ? res0.json() : Promise.reject( `Status -> ${ res0.status } ** Code error -> ${ res0.statusText }`) )
     .then( res => {  
       if(res.hasOwnProperty('status')){
         if(res.status){
@@ -54,8 +56,12 @@ document.addEventListener("DOMContentLoaded", () => {
           Plotly.newPlot( $sec_graph, genData( res.items , res.result ) , genLayout( true ) );
         };  
       };
-    });
+    })
+    .catch(err =>  modalShow( Modal, "sec_modal", 1, mBodyBTN1(err) ) )
 });
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /**
  * If user change window when modal graph is open, then change graph's size 
  * @callback window-resize 
@@ -64,3 +70,5 @@ document.addEventListener("DOMContentLoaded", () => {
 window.addEventListener('resize', () =>{
   $sec_graph != undefined && Plotly.relayout( $sec_graph, { height: sec_graph.clientHeight, width: (document.querySelector('body').clientWidth)*0.95 });
 });
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */

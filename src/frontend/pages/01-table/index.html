@@ -11,10 +11,10 @@
   <section id="sec_filter1" class="container-fluid mt-2">
     <div class="card">
       <div class="row mx-0">
-        <section class="col-xl-6 mt-1">
+        <section class="col-lg-6 col-md-7 offset-md-0 offset-sm-1 col-sm-10 mt-1">
           <form id="frm_date" autocomplete="off">
             <div class="form-row">
-              <div class="col-md-9">
+              <div class="col-sm-9">
                 <div class="form-group row mb-0">
                   <label class="col-xs-3 col-2 col-form-label text-right pr-2">From: </label>
                   <div class="col-xs-3 col-6 px-0">
@@ -42,14 +42,14 @@
                 </div>
               </div>
 
-              <div class="col-md-3"><button type="submit" class="btn btn-outline-light w-100" style="margin-top: 25px;">Filter</button></div>
+              <div class="col-sm-3"><button type="submit" class="btn btn-outline-light w-100" style="margin-top: 25px;">Filter</button></div>
             </div>
           </form>
         </section>
-        <section class="col-xl-6 mt-1">
+        <section class="col-lg-6 col-md-5 offset-md-0 offset-sm-1 col-sm-10 mt-1">
           <form id="frm_search" autocomplete="off">
             <div class="form-row" style="margin-top: 25px;">
-              <div class="col-md-9 text-right">
+              <div class="col-sm-9 text-right">
                 <div class="form-group row">
                   <label class="col-5 col-form-label text-right">Search: </label>
                   <div class="col-7">
@@ -58,7 +58,7 @@
                   </div>
                 </div>
               </div>
-              <div class="col-md-3"><button type="submit" class="btn btn-outline-light w-100">Search</button></div>
+              <div class="col-sm-3"><button type="submit" class="btn btn-outline-light w-100">Search</button></div>
             </div>
           </form>
         </section>
@@ -109,28 +109,13 @@
   <section id="sec_btnpage1" class="text-center mt-2" role="group">
     <div class="row mx-0">
 
-      <div class="offset-md-1 col-md-3 align-self-center">
-        <button id="btn_down" type="button" class="form-control btn btn-outline-light text-truncate" style="font-family: kanit1; font-size: 20px;">
+      <div class="offset-sm-1 col-sm-4 col-7 align-self-center">
+        <button id="btn_down" type="button" class="form-control btn btn-outline-light text-truncate" style="">
           <i class="far fa-file-excel pr-2"></i> Import excel table
         </button>
       </div>
-
-      <!--
-      <div class="col-md-4">
-        <div class="btn-group">
-          <span style="line-height: 2.3;" class="text-light">PAG: </span>
-          <button id="btn_minus" type="button" class="form-control btn btn-outline-light ml-2">
-            <i id="btn_minus" class="fas fa-minus-circle"></i>
-          </button>
-          <input id="inp_page" type="number" class="form-control text-center" value="1">
-          <button id="btn_plus" type="button" class="form-control btn btn-outline-light">
-            <i id="btn_plus" class="fas fa-plus-circle"></i>
-          </button>
-        </div>
-      </div>
-      -->
       
-      <div id="lbl_total" class="col-md-4 align-self-center">
+      <div id="lbl_total" class="offset-sm-2 col-sm-4 col-5 align-self-center">
         TOTAL:  
       </div>
 

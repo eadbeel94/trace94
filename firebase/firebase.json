@@ -11,8 +11,8 @@
     ],
     "rewrites": [
       {
-        "source": "/APItrace/*",
-        "function": "trace"
+        "source": "/api/**",
+        "function": "api"
       }
     ]
   }

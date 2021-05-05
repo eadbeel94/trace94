@@ -8,6 +8,7 @@ src/www
 
 firebase/functions/node_modules
 firebase/functions/src/keys
+firebase/functions/keys
 firebase/functions/ui-debug.log
 firebase/public/
 firebase/.firebaserc

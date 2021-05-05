@@ -18,10 +18,6 @@ This app can do:
 - Backend (routes)
   - [files](/projects/trace94/pages/doc/Backend_route_files.html)
 
-<!--
-Web page example link: [inventory94](https://inventory94.herokuapp.com/)
--->
-
 # Used Technologies
 - Frontend
   - HTML5

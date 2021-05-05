@@ -6,6 +6,9 @@
  * @memberof Frontend/service 
  */
 const messWait= `Please wait <br/> <div class="spinner-border text-info mt-3" role="status"><span class="sr-only">Loading...</span></div>`;
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /**
  * Create a Html Bootstrap-Modal
  * @function modalShow
@@ -16,7 +19,7 @@ const messWait= `Please wait <br/> <div class="spinner-border text-info mt-3" ro
  * @param {string} body modal body with HTML tags and text
  * @returns {{native: Element, modal: HTMLElement, $confirmed: Element }} return modal method object, modal body element and confirmed button element
  */
-const modalShow= ( Modal , id="" , type=1 , body="" ) =>{            //Create a Html Modal empty
+const modalShow= ( Modal , id="" , type=1 , body="" ) =>{
   const modal= document.getElementById(`${id}`);  
   const random= Math.floor(Math.random() * 100);
   modal.innerHTML= `
@@ -30,6 +33,9 @@ const modalShow= ( Modal , id="" , type=1 , body="" ) =>{            //Create a 
   const $confirmed= modal.querySelector('.confirmed');
   return { native , modal , $confirmed };
 };
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /**
  * Create a Html Bootstrap-Modal
  * @function modalGraph
@@ -38,7 +44,7 @@ const modalShow= ( Modal , id="" , type=1 , body="" ) =>{            //Create a 
  * @param {string} id HTML tag id where filled with this Modal
  * @returns {{native: Element, modal: HTMLElement, $areaGraph: Element }} return modal method object, modal body element and areaGraph HTML element
  */
-const modalGraph= ( Modal , id="" ) =>{            //Create a Html Modal empty
+const modalGraph= ( Modal , id="" ) =>{
   const modal= document.getElementById(`${id}`);  
   const random= Math.floor(Math.random() * 100);
   modal.innerHTML= `
@@ -59,6 +65,9 @@ const modalGraph= ( Modal , id="" ) =>{            //Create a Html Modal empty
   const $areaGraph= modal.querySelector('section .card');
   return { native , modal , $areaGraph };
 };
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /**
  * Create a Html Modal body with a button
  * @function mBodyBTN1
@@ -81,6 +90,9 @@ const mBodyBTN1= ( message="" )=>{
       </div>
     </div>`;
 };
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /**
  * Create a Html Modal body with 2 buttons
  * @function mBodyBTN2
@@ -106,6 +118,9 @@ const mBodyBTN2= ( message="" , textL= "YES" , textR= "CANCEL" )=>{
       </div>
     </div>`;
 };
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /**
  * Create a Html Table with files' information
  * @function genTable
@@ -126,6 +141,9 @@ const genTable= ( list=[] )=>{
       </tr>`;
   }).join('');
 };
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /**
  * Re-arenge file X and Y data for graph into Plotly 
  * @function genData
@@ -147,6 +165,9 @@ const genData= ( infoXY=[], result="" ) =>{
     line: { color: result == "OK" ? '#66fecb' : '#f22d41', width: 2 }
   }];
 };
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /**
  * Plotly style configurator
  * @function genLayout
@@ -192,6 +213,9 @@ const genLayout= ( type=1 ) =>{
     }]
   }
 };
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /**
  * Get mouse position
  * @function getPosition
@@ -210,12 +234,23 @@ const getPosition= (ev)=>{
   };
   return { x: posx, y: posy };
 };
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
+/** 
+ * Variable contain environment project
+ * @type {Boolean}
+ * @memberof Frontend/01-table
+ * @todo I need to change in production
+ */ 
+ const prod= process.env.NODE_ENV === 'production';
+
 /** 
  * Variable contain IP for using any fetch
  * @type {string}
  * @memberof Frontend/01-table
  * @todo I need to change in production
  */ 
-const IP2= '/APItrace';//'http://localhost:5001/driveshop5/us-central1/trace';
+const IP= !prod ? "http://localhost:5000/" : "";
 
-module.exports= { modalShow , modalGraph , mBodyBTN1 , mBodyBTN2 , messWait , genTable , genData , genLayout , getPosition , IP2 };
+module.exports= { modalShow , modalGraph , mBodyBTN1 , mBodyBTN2 , messWait , genTable , genData , genLayout , getPosition, prod , IP };

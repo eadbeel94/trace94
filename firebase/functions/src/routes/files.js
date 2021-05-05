@@ -6,6 +6,9 @@ const m= require('moment');
 
 const { storage } = require("firebase-admin");
 const bucket = storage().bucket();
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /**
  * Create a Array with files information
  * @function listFiles
@@ -31,6 +34,9 @@ const listFiles= async ( blobs= [] )=>{
   */
   return files;
 };
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /**
  * Get list using client criterion.
  *
@@ -86,6 +92,9 @@ router.post('/filter1', async (req,res)=>{
   } catch (err) { console.log(err); status= false; };
   res.json({ status, items });
 });
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /**
  * Get graph X and Y values.
  *
@@ -117,6 +126,9 @@ router.get('/graph1', async (req,res)=>{
   } catch (err) { console.log(err); status= false; };
   res.json({ status, items, result });
 });
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 /**
  * Get list using search word client.
  *
@@ -165,6 +177,8 @@ router.get('/search1', async (req,res)=>{
   res.json({ status, items });
 });
 
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
+
 router.use( jsonex.middleware );
 /**
  * Get excel export list.
@@ -201,5 +215,7 @@ router.post('/gentable1', async (req,res)=>{
     }
   } catch (err) { console.log(err.message); status= false; };
 });
+
+/* -------------------------------------------------------------------------------------------------------------------------------------------------------- */
 
 module.exports = router;
